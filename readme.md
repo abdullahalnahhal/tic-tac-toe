@@ -1,59 +1,69 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+#PHP Tic Tac Toe App
+These App for implementing tic tac toe game as a php [ Laravel ] , HTML, CSS, JQuery.
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+### Installation
+1. clone : `https://github.com/abdullahalnahhal/tic-tac-toe.git`.
+2. Config the App open `.env` file or just use the `.env.example` by removing the `.example` and type `php artisan key:generate` on the Terminal.
+3. Conig the `DB` information such as `DB_HOST`, `DB_PORT`, `DB_DATABASE`, and etc... .
+4. On the Terminal Type `php artisan migrate`.
+5. On the  Terinal Type `php artisan db:seed`.
+6. On the Terminal Type `./vendor/bin/phpunit`.
 
-## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
+------------
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Files And Directories
+##### Controller Files
+We Have two Main Controllers :
+- Web : `App/Http/Controllers/HomeController`.
+-It works for initiate, create new player and game, and initiate Token on the player table.
+-Has two Methods `index` : to call `startGame` method [ entry point ] and return it on the view.
+-Has two Methods `startGame` : for initiating the player and Game.
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of any modern web application framework, making it a breeze to get started learning the framework.
-
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 1100 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for helping fund on-going Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell):
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Pulse Storm](http://www.pulsestorm.net/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- Api : `App/Http/Controllers/Api/PlayController` .
+-It works as an entry point for the play logic.
+-We can Othenticate the user on the Middleware `APIToken.php`.
+-Has six Methods 
+			`index` : Initiate Player, Gaming, Slots ,and Board .
+			`Play` : Entrty point for playing.
+			`winOrLoose` : Checks if the player [ human/computer ] win, loose, or game over.
+			`humanPlay` : making a play for the human player.
+			`computerPlay` : making a play for the computer player.
+			`mssages` : used for returning the messages that returned to the user.
+##### Brain Files
+###### Directory `App/Gaming`
+- `Slot` Presents the slot podition (x, y) point.
+-It has two methods 
+		`__construct` : to Initiate Slot .
+		`__get` : to get the slot point x or y .
+- `SlotsIterator` Presents group of slots and it implements `Iterator` interface and extends the `App/Gaming/Abstracts/SlotsIteratorAbstract` .
+-it has five methods
+		`__set` : As a setter it can't accept any variable except Slot object
+		`count` : As counter for the internal slots.
+		`rand` : Returns random slot.
+		`unst` : Unset the selected slot from the group
+		`source` : Returns an array of Slots.
+- `Board` Presents the 3 * 3 Board that the user play on it and extends `App/Gaming/Abstracts/BoardAbstract`
+-It has 12 methods 
+		`__construct` : Works as initiator method entry point.
+		`initHumanSlots` : initiate the human slots on these board as `SlotsIterator` object
+		`initComputerSlots` : initiate the computer slots on these board as `SlotsIterator` object.
+		`initFreeSlots` : initiate the free slots on these board as `SlotsIterator` object.
+		`addHumanSlot` : To add new slot the human slots in these board.
+		`addComputerSlot` : To add new slot the computer slots in these board.
+		`removeFreeSlot` : To remove a slot from free slots in these board.
+		`isFreeSlot` : Checks if these slot is free or not.
+		`isRow` : Checks if these group of slots presents a row [ vertical slots ] or not.
+		`isColumn` : Checks if these group of slots presents a column [ horizontal slots ] or not.
+		`isLDiag` : Checks if these group of slots presents a left diagonal [ like \ ] or not.
+		`isRDiag` : Checks if these group of slots presents a right diagonal [ like / ] or not.
+- `Player` Presents a player either human or computer and extends `App/Gaming/Abstracts/PlayerAbstract`
+-it has two methods 
+		`__construct` : initiate variables
+		`makeAction` : add Player action to the Players Table
+- `Gaming` implements the `App/Gaming/Interfaces/GamingInterface`.
+-it has four methods
+		`humanPlay` Works as entry Point  for making human play action.
+		`computerPlay` Works as entry Point  for making computer play action.
+		`isWin` Checks if these group of slots make win or not [ win for human ]
+		`isLoose` Checks if these group of slots make loose or not [ win for computer ]
