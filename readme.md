@@ -38,11 +38,11 @@ We Have two Main Controllers :
 		`__get` : to get the slot point x or y .
 - `SlotsIterator` Presents group of slots and it implements `Iterator` interface and extends the `App/Gaming/Abstracts/SlotsIteratorAbstract` .
 -it has five methods
--`__set` : As a setter it can't accept any variable except Slot object
--`count` : As counter for the internal slots.
--`rand` : Returns random slot.
--`unst` : Unset the selected slot from the group
--`source` : Returns an array of Slots.
+		`__set` : As a setter it can't accept any variable except Slot object
+		`count` : As counter for the internal slots.
+		`rand` : Returns random slot.
+		`unst` : Unset the selected slot from the group
+		`source` : Returns an array of Slots.
 - `Board` Presents the 3 * 3 Board that the user play on it and extends `App/Gaming/Abstracts/BoardAbstract`
 -It has 12 methods 
 		`__construct` : Works as initiator method entry point.
